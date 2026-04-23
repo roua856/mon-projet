@@ -45,10 +45,11 @@ jobs:
           cd frontend
           npm test -- --watchAll=false --coverage
 
-      - name: 7. Construire l'application React
-        run: |
-          cd frontend
-          npm run build
+      - name: 7. Analyser la qualité du backend avec SonarQube / SonarCloud
+        uses: SonarSource/sonarqube-scan-action@v5.2.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
 
       - name: 8. Construire l'image Docker du frontend
         run: |
